@@ -12,9 +12,8 @@ import android.widget.Toast;
 public class PlayRoundOne extends AppCompatActivity {
 
     Boolean wildsAreGood, acesAreGood, tensToKingsAreGood, threesToNinesAreGood;
-    Button wildsIncrement, wildsDecrement;
-    EditText aces, tenToKing, threeToNine;
-    TextView wilds;
+    Button wildsIncrement, wildsDecrement, acesIncrement, acesDecrement, tenToKingIncrement, getTenToKingDecrement, threeToNineIncrement, threeToNineDecrement;
+    TextView wilds, aces, tenToKing, threeToNine;
     int numberOfWilds, numberOfAces, numberOfTensToKings, numberOfThreesToNines;
     int wildsTotal, acesTotal, tenToKingTotal, threeToNineTotal, totalScore;
 
@@ -30,6 +29,12 @@ public class PlayRoundOne extends AppCompatActivity {
         threeToNine = findViewById(R.id.ThreeToNine);
         wildsIncrement = findViewById(R.id.WildsIncrement);
         wildsDecrement = findViewById(R.id.WildsDecrement);
+        acesIncrement = findViewById(R.id.AcesIncrement);
+        acesDecrement = findViewById(R.id.AcesDecrement);
+        tenToKingIncrement = findViewById(R.id.TenToKingIncrement);
+        getTenToKingDecrement = findViewById(R.id.TenToKingDecrement);
+        threeToNineIncrement = findViewById(R.id.ThreeToNineIncrement);
+        threeToNineDecrement = findViewById(R.id.ThreeToNineDecrement);
     }
 
     /**Called when the player clicks wilds increment button*/
@@ -39,6 +44,27 @@ public class PlayRoundOne extends AppCompatActivity {
         wilds.setText(Integer.toString(currentWildCount));
     }
 
+    /**Called when the player clicks aces increment button*/
+    public void incrementAces(View view) {
+        int currentAceCount = Integer.parseInt(aces.getText().toString());
+        currentAceCount++;
+        aces.setText(Integer.toString(currentAceCount));
+    }
+
+    /**Called when the player clicks tens through kings increment button*/
+    public void incrementTensToKings(View view) {
+        int currentTenToKingCount = Integer.parseInt(tenToKing.getText().toString());
+        currentTenToKingCount++;
+        tenToKing.setText(Integer.toString(currentTenToKingCount));
+    }
+
+    /**Called when the player clicks threes through nines increment button*/
+    public void incrementThreesToNines(View view) {
+        int currentThreeToNineCount = Integer.parseInt(threeToNine.getText().toString());
+        currentThreeToNineCount++;
+        threeToNine.setText(Integer.toString(currentThreeToNineCount));
+    }
+
     /**Called when the player clicks wilds decrement button*/
     public void decrementWilds(View view) {
         int currentWildCount = Integer.parseInt(wilds.getText().toString());
@@ -46,11 +72,30 @@ public class PlayRoundOne extends AppCompatActivity {
         wilds.setText(Integer.toString(currentWildCount));
     }
 
+    /**Called when the player clicks aces decrement button*/
+    public void decrementAces(View view) {
+        int currentAceCount = Integer.parseInt(aces.getText().toString());
+        currentAceCount--;
+        aces.setText(Integer.toString(currentAceCount));
+    }
+
+    /**Called when the player clicks tens through kings decrement button*/
+    public void decrementTensToKings(View view) {
+        int currentTenToKingCount = Integer.parseInt(tenToKing.getText().toString());
+        currentTenToKingCount--;
+        tenToKing.setText(Integer.toString(currentTenToKingCount));
+    }
+
+    /**Called when the player clicks threes through nines decrement button*/
+    public void decrementThreesToNines(View view) {
+        int currentThreeToNineCount = Integer.parseInt(threeToNine.getText().toString());
+        currentThreeToNineCount--;
+        threeToNine.setText(Integer.toString(currentThreeToNineCount));
+    }
+
     /**Called when player submits score*/
     public void roundTwo(View view) {
         //Get number of each type of card
-        if (!wilds.getText().toString().equals("") && !aces.getText().toString().equals("") &&
-                !tenToKing.getText().toString().equals("") && !threeToNine.getText().toString().equals("")) {
             numberOfWilds = Integer.parseInt(wilds.getText().toString());
             numberOfAces = Integer.parseInt(aces.getText().toString());
             numberOfTensToKings = Integer.parseInt(tenToKing.getText().toString());
@@ -65,9 +110,6 @@ public class PlayRoundOne extends AppCompatActivity {
                 intent.putExtra("total", Integer.toString(totalScore));
                 startActivity(intent);
             }
-        } else {
-            Toast.makeText(this, "Must enter a valid number!", Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**Gets the total score for the round*/
