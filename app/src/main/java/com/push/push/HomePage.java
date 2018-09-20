@@ -15,7 +15,7 @@ public class HomePage extends AppCompatActivity {
 
     /**Called when the user taps the Play button */
     public void playGame(View view) {
-        Intent intent = new Intent(this, PlayRoundOne.class);
+        Intent intent = new Intent(this, Play.class);
         startActivity(intent);
     }
 

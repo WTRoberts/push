@@ -17,9 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayRoundOne" />
+        <activity android:name=".Play" />
         <activity android:name=".RulesRoundOne" />
-        <activity android:name=".PlayRoundTwo"></activity>
     </application>
 
 </manifest>

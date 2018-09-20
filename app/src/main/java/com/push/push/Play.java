@@ -1,28 +1,28 @@
 package com.push.push;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PlayRoundOne extends AppCompatActivity {
+public class Play extends AppCompatActivity {
 
     Boolean wildsAreGood, acesAreGood, tensToKingsAreGood, threesToNinesAreGood;
     Button wildsIncrement, wildsDecrement, acesIncrement, acesDecrement, tenToKingIncrement, getTenToKingDecrement, threeToNineIncrement, threeToNineDecrement;
-    TextView wilds, aces, tenToKing, threeToNine;
+    TextView wilds, aces, tenToKing, threeToNine, score, round;
     int numberOfWilds, numberOfAces, numberOfTensToKings, numberOfThreesToNines;
-    int wildsTotal, acesTotal, tenToKingTotal, threeToNineTotal, totalScore;
+    int wildsTotal, acesTotal, tenToKingTotal, threeToNineTotal, totalScore, currentRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_round_one);
+        setContentView(R.layout.activity_play);
 
         //Get ids
+        round = findViewById(R.id.firstRound);
+        score = findViewById(R.id.Score);
         wilds = findViewById(R.id.Wilds);
         aces = findViewById(R.id.Aces);
         tenToKing = findViewById(R.id.TenToKing);
@@ -35,6 +35,14 @@ public class PlayRoundOne extends AppCompatActivity {
         getTenToKingDecrement = findViewById(R.id.TenToKingDecrement);
         threeToNineIncrement = findViewById(R.id.ThreeToNineIncrement);
         threeToNineDecrement = findViewById(R.id.ThreeToNineDecrement);
+
+        //Initializing the round number for first round
+        currentRound = 1;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Cannot go back!", Toast.LENGTH_SHORT).show();
     }
 
     /**Called when the player clicks wilds increment button*/
@@ -94,22 +102,27 @@ public class PlayRoundOne extends AppCompatActivity {
     }
 
     /**Called when player submits score*/
-    public void roundTwo(View view) {
-        //Get number of each type of card
-            numberOfWilds = Integer.parseInt(wilds.getText().toString());
-            numberOfAces = Integer.parseInt(aces.getText().toString());
-            numberOfTensToKings = Integer.parseInt(tenToKing.getText().toString());
-            numberOfThreesToNines = Integer.parseInt(threeToNine.getText().toString());
+    public void nextRound(View view) {
+        numberOfWilds = Integer.parseInt(wilds.getText().toString());
+        numberOfAces = Integer.parseInt(aces.getText().toString());
+        numberOfTensToKings = Integer.parseInt(tenToKing.getText().toString());
+        numberOfThreesToNines = Integer.parseInt(threeToNine.getText().toString());
 
-            checkCardNumbers();
+        checkCardNumbers();
 
-            if (wildsAreGood && acesAreGood && tensToKingsAreGood && threesToNinesAreGood) {
-                getTotalScore();
-                //Start next Round
-                Intent intent = new Intent(this, PlayRoundTwo.class);
-                intent.putExtra("total", Integer.toString(totalScore));
-                startActivity(intent);
-            }
+        if (wildsAreGood && acesAreGood && tensToKingsAreGood && threesToNinesAreGood) {
+            getTotalScore();
+            //Reset card counts and increment round
+            wilds.setText(Integer.toString(0));
+            aces.setText(Integer.toString(0));
+            tenToKing.setText(Integer.toString(0));
+            threeToNine.setText(Integer.toString(0));
+            currentRound++;
+            //Start next Round
+            String string = Integer.toString(totalScore);
+            score.setText("Score " + string);
+            round.setText("Round " + currentRound);
+        }
     }
 
     /**Gets the total score for the round*/
